@@ -41,3 +41,11 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+sourceSets {
+    test {
+        java {
+            setSrcDirs(listOf("src/test/integ","src/test/unit"))
+        }
+    }
+}
