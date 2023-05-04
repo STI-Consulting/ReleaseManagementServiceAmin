@@ -1,31 +1,31 @@
 package com.kotlinspring.service
 
-import com.kotlinspring.dto.SystemVersion
+import com.kotlinspring.dto.SystemVersionDto
 import org.springframework.stereotype.Service
 
 @Service
 class ReleaseManagerService {
-    private var currentSystemVersion = SystemVersion(0, emptyList())
+    private var currentSystemVersionDto = SystemVersionDto(0, 0,emptyList())
 
 
-    fun retrieveSystemVersionServices(systemVersion: Int): List<com.kotlinspring.dto.Service> {
-        return currentSystemVersion.services.filter { it.version <= systemVersion }
+    fun retrieveSystemVersionServices(systemVersion: Int): List<com.kotlinspring.dto.ServiceDto> {
+        return currentSystemVersionDto.serviceDtos.filter { it.version <= systemVersion }
     }
 
-    fun updateServiceVersion(service: com.kotlinspring.dto.Service): Int {
-        val existingService = currentSystemVersion.services.find { it.name == service.name }
+    fun updateServiceVersion(serviceDto: com.kotlinspring.dto.ServiceDto): Int {
+        val existingService = currentSystemVersionDto.serviceDtos.find { it.name == serviceDto.name }
         val newServices = if (existingService == null) {
-            currentSystemVersion.services + service
+            currentSystemVersionDto.serviceDtos + serviceDto
         } else {
-            currentSystemVersion.services.map { if (it.name == service.name) service else it }
+            currentSystemVersionDto.serviceDtos.map { if (it.name == serviceDto.name) serviceDto else it }
         }
-        val newSystemVersion = if (existingService == null || existingService.version != service.version) {
-            SystemVersion(currentSystemVersion.number + 1, newServices)
+        val newSystemVersionDto = if (existingService == null || existingService.version != serviceDto.version) {
+            SystemVersionDto(0,currentSystemVersionDto.number + 1, newServices)
         } else {
-            currentSystemVersion
+            currentSystemVersionDto
         }
-        currentSystemVersion = newSystemVersion
+        currentSystemVersionDto = newSystemVersionDto
 
-        return currentSystemVersion.number
+        return currentSystemVersionDto.number
     }
 }
