@@ -1,6 +1,6 @@
 package com.kotlinspring.dto
 
-data class ServiceDto(
+data class MicroServiceDto(
     val id: Int?,
     val name: String,
     val version: Int

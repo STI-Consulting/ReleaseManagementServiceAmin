@@ -14,6 +14,6 @@ data class SystemVersion(
         cascade = [CascadeType.ALL],
         orphanRemoval = true
     )
-    val services: List<Service> = mutableListOf()
+    val microServices: List<MicroService> = mutableListOf()
 
 )

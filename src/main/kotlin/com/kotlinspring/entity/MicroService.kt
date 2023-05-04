@@ -3,8 +3,8 @@ package com.kotlinspring.entity
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "Services")
-data class Service(
+@Table(name = "MicroServices")
+data class MicroService(
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
