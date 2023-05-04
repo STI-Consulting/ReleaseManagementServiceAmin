@@ -20,7 +20,8 @@ class ReleaseManagerController(val releaseManagerService: ReleaseManagerService)
     }
 
     @PostMapping("/deploy")
-    fun deployService(@RequestBody serviceDto: ServiceDto): ResponseEntity<Int> {
-        return ResponseEntity(releaseManagerService.updateServiceVersion(serviceDto), HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
+    fun deployService(@RequestBody serviceDto: ServiceDto): Int {
+        return releaseManagerService.updateServiceVersion(serviceDto)
     }
 }

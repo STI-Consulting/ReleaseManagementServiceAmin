@@ -1,11 +1,12 @@
 package com.kotlinspring.service
 
 import com.kotlinspring.dto.SystemVersionDto
+import com.kotlinspring.repository.ServiceRepository
 import org.springframework.stereotype.Service
 
 @Service
-class ReleaseManagerService {
-    private var currentSystemVersionDto = SystemVersionDto(0, 0,emptyList())
+class ReleaseManagerService(val serviceRepository: ServiceRepository) {
+    private var currentSystemVersionDto = SystemVersionDto(0, 0, emptyList())
 
 
     fun retrieveSystemVersionServices(systemVersion: Int): List<com.kotlinspring.dto.ServiceDto> {
@@ -20,7 +21,7 @@ class ReleaseManagerService {
             currentSystemVersionDto.serviceDtos.map { if (it.name == serviceDto.name) serviceDto else it }
         }
         val newSystemVersionDto = if (existingService == null || existingService.version != serviceDto.version) {
-            SystemVersionDto(0,currentSystemVersionDto.number + 1, newServices)
+            SystemVersionDto(0, currentSystemVersionDto.number + 1, newServices)
         } else {
             currentSystemVersionDto
         }

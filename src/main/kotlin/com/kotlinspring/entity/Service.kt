@@ -10,5 +10,9 @@ data class Service(
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Int?,
     val name: String,
-    val version: Int
+    val version: Int,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SYSTEMVERSIONS_ID", nullable = false)
+    val systemVersion: SystemVersion? = null
 )

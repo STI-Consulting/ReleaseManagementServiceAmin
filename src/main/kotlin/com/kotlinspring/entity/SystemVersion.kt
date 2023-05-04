@@ -1,17 +1,19 @@
 package com.kotlinspring.entity
 
-import com.kotlinspring.dto.ServiceDto
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Entity
-@Table(name = "SystemVersion")
+@Table(name = "SYSTEMVERSIONS")
 data class SystemVersion(
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Int?,
     val number: Int,
-
-    val serviceDtos: String
+    @OneToMany(
+        mappedBy = "systemVersion",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
+    val services: List<Service> = mutableListOf()
 
 )
