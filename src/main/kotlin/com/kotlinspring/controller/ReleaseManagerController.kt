@@ -14,9 +14,9 @@ class ReleaseManagerController(val releaseManagerService: ReleaseManagerService)
     companion object : KLogging()
 
     @GetMapping("/services")
-    fun getServices(@RequestParam systemVersion: Int): ResponseEntity<List<MicroServiceDto>> {
+    fun getServices(@RequestParam systemVersion: Int): List<MicroServiceDto> {
         logger.info("SystemVersion is: $systemVersion")
-        return ResponseEntity(releaseManagerService.retrieveSystemVersionServices(systemVersion), HttpStatus.OK)
+        return releaseManagerService.retrieveMicroServicesWithSystemVersion(systemVersion)
     }
 
     @PostMapping("/deploy")

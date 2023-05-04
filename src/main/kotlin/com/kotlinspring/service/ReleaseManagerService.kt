@@ -1,5 +1,6 @@
 package com.kotlinspring.service
 
+import com.kotlinspring.dto.MicroServiceDto
 import com.kotlinspring.dto.SystemVersionDto
 import com.kotlinspring.repository.MicroServiceRepository
 import com.kotlinspring.repository.SystemVersionRepository
@@ -12,8 +13,9 @@ class ReleaseManagerService(val microServiceRepository: MicroServiceRepository,
     private var currentSystemVersionDto = SystemVersionDto(0, 0, emptyList())
 
 
-    fun retrieveSystemVersionServices(systemVersion: Int): List<com.kotlinspring.dto.MicroServiceDto> {
-        return currentSystemVersionDto.microServiceDtos.filter { it.version <= systemVersion }
+    fun retrieveMicroServicesWithSystemVersion(systemVersion: Int): List<com.kotlinspring.dto.MicroServiceDto> {
+        val microservices = microServiceRepository.findAll().filter{ it.version <= systemVersion }
+       return microservices.map { MicroServiceDto(it.id,it.name,it.version) }
     }
 
     fun updateServiceVersion(microServiceDto: com.kotlinspring.dto.MicroServiceDto): Int {
