@@ -18,4 +18,9 @@ class ReleaseManagerController(val releaseManagerService: ReleaseManagerService)
         logger.info("SystemVersion is: $systemVersion")
         return ResponseEntity(releaseManagerService.retrieveSystemVersionServices(systemVersion), HttpStatus.OK)
     }
+
+    @PostMapping("/deploy")
+    fun deployService(@RequestBody service: Service): ResponseEntity<Int> {
+        return ResponseEntity(releaseManagerService.updateServiceVersion(service), HttpStatus.OK)
+    }
 }
